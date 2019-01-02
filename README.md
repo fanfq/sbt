@@ -1,4 +1,4 @@
-# my-spring-boot
+# springboot templated
 
 ## Functionality List
 - Web configuration and static page support 
