@@ -5,7 +5,7 @@ spring:
   profiles:
     active: dev
   cache:
-    type: CAFFEINE #指定cache类型
+    type: CAFFEINE #指定cache类型 https://blog.csdn.net/ClementAD/article/details/53009899
     cache-names:
       - selectAll458
       - name2
@@ -34,6 +34,25 @@ spring:
 
 mybatis:
   mapperLocations: classpath:mapper/*/*.xml
+
+mq:
+  rabbit:
+    username: admin
+    password: admin
+    port: 5672
+    host: localhost
+    address: localhost
+    virtualHost: /
+    exchange:
+        simple: simpleExchange
+        topicExchage: topicExchage
+    queue:
+        simple: qutestmq
+        a: qutestmqa
+        b: qutestmqb
+        #ta: topic.a 
+        #tb: topic.b
+        #tall: topic.all
     
 server:
   port: 8083
