@@ -116,16 +116,3 @@ myconfig:
     key1: value1
     key2: value2
   
----
-# 测试环境配置
-spring:
-  profiles: test
-  datasource:
-    url: jdbc:mysql://192.168.0.12:3306/
-  
----
-# 生产环境配置
-spring:
-  profiles: prod
-  datasource:
-    url: jdbc:mysql://192.168.0.13:3306/

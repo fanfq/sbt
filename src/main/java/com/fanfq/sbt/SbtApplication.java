@@ -1,5 +1,8 @@
 package com.fanfq.sbt;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.actuate.health.Health;
 import org.springframework.boot.actuate.health.HealthIndicator;
@@ -13,9 +16,15 @@ import org.springframework.scheduling.annotation.EnableScheduling;
 @EnableAutoConfiguration
 @ComponentScan(basePackages={"com.fanfq.*"})//添加的注解
 public class SbtApplication implements HealthIndicator{
+	
+	private static final Logger logger = LogManager.getLogger(SbtApplication.class);
 
 	public static void main(String[] args) {
 		SpringApplication.run(SbtApplication.class, args);
+		logger.info("info");
+		logger.debug("debug");
+		logger.warn("warn");
+		logger.error("error");
 	}
 
 	@Override

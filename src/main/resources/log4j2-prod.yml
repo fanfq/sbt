@@ -13,7 +13,7 @@ Configuration:
       - name: project.name
         value: sbt
       - name: log.path
-        value: /Users/fred/Desktop/logs/${project.name}
+        value: /Users/fred/Desktop/logs-prod/${project.name}
   Appenders:
     Console:  #输出到控制台
       name: CONSOLE
@@ -31,8 +31,8 @@ Configuration:
             level: info
             onMatch: ACCEPT
             onMismatch: DENY
-        fileName: "${log.path}/${project.name}_info.log"
-        filePattern: "${log.path}/$${date:yyyy-MM}/${project.name}_info_%d{yyyy-MM-dd}-%i.log.gz"
+        fileName: "${log.path}/info_${project.name}.log"
+        filePattern: "${log.path}/$${date:yyyy-MM}/info_${project.name}_%d{yyyy-MM-dd}-%i.log.gz"
         PatternLayout:
           pattern: "[${project.name}][%-d{yyyy-MM-dd HH:mm:ss}][%p] %C.%M(%L) | %m%n"
         Policies:
@@ -48,8 +48,8 @@ Configuration:
             level: debug
             onMatch: ACCEPT
             onMismatch: DENY
-        fileName: ${log.path}/${project.name}_debug.log
-        filePattern: "${log.path}/$${date:yyyy-MM}/${project.name}_debug_%d{yyyy-MM-dd}-%i.log.gz"
+        fileName: ${log.path}/debug_${project.name}.log
+        filePattern: "${log.path}/$${date:yyyy-MM}/debug_${project.name}_%d{yyyy-MM-dd}-%i.log.gz"
         PatternLayout:
           pattern: "[${project.name}][%-d{yyyy-MM-dd HH:mm:ss}][%p] %C.%M(%L) | %m%n"
         Policies:
@@ -65,8 +65,8 @@ Configuration:
             level: error
             onMatch: ACCEPT
             onMismatch: DENY
-        fileName: ${log.path}/${project.name}_error.log
-        filePattern: "${log.path}/$${date:yyyy-MM}/${project.name}_error_%d{yyyy-MM-dd}-%i.log.gz"
+        fileName: ${log.path}/error_${project.name}.log
+        filePattern: "${log.path}/$${date:yyyy-MM}/error_${project.name}_%d{yyyy-MM-dd}-%i.log.gz"
         PatternLayout:
           pattern: "[${project.name}][%-d{yyyy-MM-dd HH:mm:ss}][%p] %C.%M(%L) | %m%n"
         Policies:
@@ -76,7 +76,23 @@ Configuration:
             size: "128 MB"
         DefaultRolloverStrategy:
           max: 1000    
-          
+      - name: WARN_ROLLING_FILE
+        filters:
+          ThresholdFilter:
+            level: warn
+            onMatch: ACCEPT
+            onMismatch: DENY
+        fileName: ${log.path}/warn_${project.name}.log
+        filePattern: "${log.path}/$${date:yyyy-MM}/warn_${project.name}_%d{yyyy-MM-dd}-%i.log.gz"
+        PatternLayout:
+          pattern: "[${project.name}][%-d{yyyy-MM-dd HH:mm:ss}][%p] %C.%M(%L) | %m%n"
+        Policies:
+          TimeBasedTriggeringPolicy:
+            interval: 1
+          SizeBasedTriggeringPolicy:
+            size: "128 MB"
+        DefaultRolloverStrategy:
+          max: 1000     
           
   Loggers:
     Root:
@@ -86,6 +102,4 @@ Configuration:
         - ref: INFO_ROLLING_FILE
         - ref: DEBUG_ROLLING_FILE
         - ref: ERROR_ROLLING_FILE
-        
-        
- 
+        - ref: WARN_ROLLING_FILE

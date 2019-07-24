@@ -1,0 +1,8 @@
+# 生产环境配置
+spring:
+  profiles: prod
+  datasource:
+    url: jdbc:mysql://192.168.0.13:3306/
+    
+logging:
+  config: classpath:log4j2-prod.yml
